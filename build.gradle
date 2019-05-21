@@ -45,7 +45,7 @@ kapt {
 task copyDomaResources(type: Sync)  {
     from sourceSets.main.resources.srcDirs
     into compileKotlin.destinationDir
-    include 'doma.compile.config'
+//    include 'doma.compile.config'
     include 'META-INF/**/*.sql'
     include 'META-INF/**/*.script'
 }
@@ -96,7 +96,10 @@ dependencies {
     implementation group: 'org.jooby', name: 'jooby-jackson', version:  "${jooby_version}"
     // https://mvnrepository.com/artifact/org.jooby/jooby-apitool
     implementation group: 'org.jooby', name: 'jooby-apitool', version: "${jooby_version}"
-
+    // https://mvnrepository.com/artifact/org.jooby/jooby-jdbc
+    implementation group: 'org.jooby', name: 'jooby-jdbc', version: '1.6.0'
+    // https://mvnrepository.com/artifact/org.jooby/jooby-jdbi
+    implementation group: 'org.jooby', name: 'jooby-jdbi3', version: '1.6.0'
 
     /*
      * java Library
@@ -105,9 +108,21 @@ dependencies {
     implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.26'
-    // https://mvnrepository.com/artifact/org.seasar.doma/doma
-    kapt group: 'org.seasar.doma', name: 'doma', version: '2.24.0'
-    implementation group: 'org.seasar.doma', name: 'doma', version: '2.24.0'
+
+
+    /*
+     * DataBase Library
+     */
+//    // https://mvnrepository.com/artifact/org.seasar.doma/doma
+//    //  doma sample ( https://github.com/domaframework/kotlin-sample )
+//    kapt group: 'org.seasar.doma', name: 'doma', version: '2.24.0'
+//    implementation group: 'org.seasar.doma', name: 'doma', version: '2.24.0'
+    // https://mvnrepository.com/artifact/com.h2database/h2
+    implementation group: 'com.h2database', name: 'h2', version: '1.4.+'
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.+'
+    // https://mvnrepository.com/artifact/org.jdbi/jdbi3-postgres
+    implementation group: 'org.jdbi', name: 'jdbi3-postgres', version: '3.8.2'
 }
 
 // Define the main class for the application.
@@ -115,10 +130,10 @@ mainClassName = 'org.example.AppKt'
 joobyRun {
     mainClassName = 'org.example.AppKt'
     compiler = 'on'
-    includes = ['**/*.class', '**/*.conf', '**/*.properties']
+    includes = ['**/*.class', '**/*.conf', '**/*.properties', '**/*.yml']
     excludes = []
     logLevel = 'info'
-    srcExtensions = [".java", ".kt", ".conf", ".properties"]
+    srcExtensions = [".java", ".kt", ".conf", ".properties", '.yml']
 }
 
 sourceSets.main.resources {

@@ -3,16 +3,28 @@
  */
 package org.example
 
-import org.jooby.Jooby.*
+import org.example.settings.Router
 import org.jooby.Kooby
+import org.jooby.apitool.ApiTool
+import org.jooby.jdbc.Jdbc
+import org.jooby.jdbi.Jdbi3
+import org.jooby.json.Jackson
+import org.jooby.run
 
 class App : Kooby({
-    get {
-        val name = param("name").value("jooby Kotlin")
-        "Hello $name!"
-    }
+
+    // 標準モジュールの定義
+    use(Jackson())
+    use(Jdbc())
+    use(Jdbi3())
+
+    use(ApiTool().swagger().raml())
+
+
+    // Web Routeの定義
+    use(Router())
 })
 
 fun main(args: Array<String>) {
-    run(::App, args)
+    run(::App, *args)
 }
