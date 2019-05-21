@@ -27,10 +27,11 @@ plugins {
 
     // Apply the application plugin to add support for building a CLI application.
     id 'application'
-    id 'idea'
-    id 'java'
-//    id 'jooby'
 }
+// Using Gradle Plugins
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'jooby'
 
 group = 'org.example'
 version = '0.0.1-SNAPSHOT'
@@ -84,8 +85,6 @@ dependencies {
     /*
      * JVM Frame Work
      */
-    // https://mvnrepository.com/artifact/io.javalin/javalin
-//    implementation group: 'io.javalin', name: 'javalin', version: '3.0.+'
     implementation group: 'org.jooby', name: 'jooby', version: "${jooby_version}"
     // https://mvnrepository.com/artifact/org.jooby/jooby-lang-kotlin
     implementation group: 'org.jooby', name: 'jooby-lang-kotlin', version:  "${jooby_version}"
@@ -113,14 +112,14 @@ dependencies {
 
 // Define the main class for the application.
 mainClassName = 'org.example.AppKt'
-//joobyRun {
-//    mainClassName = 'org.example.AppKt'
-//    compiler = 'on'
-//    includes = ['**/*.class', '**/*.conf', '**/*.properties']
-//    excludes = []
-//    logLevel = 'info'
-//    srcExtensions = [".java", ".kt", ".conf", ".properties"]
-//}
+joobyRun {
+    mainClassName = 'org.example.AppKt'
+    compiler = 'on'
+    includes = ['**/*.class', '**/*.conf', '**/*.properties']
+    excludes = []
+    logLevel = 'info'
+    srcExtensions = [".java", ".kt", ".conf", ".properties"]
+}
 
 sourceSets.main.resources {
     srcDirs = ["conf", "public"]
