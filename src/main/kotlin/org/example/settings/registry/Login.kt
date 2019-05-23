@@ -1,32 +1,28 @@
 package org.example.settings.registry
 
 import org.example.context.controllers.LoginController
-import org.jooby.Kooby
 import org.jooby.Results.redirect
+import org.jooby.mvc.GET
+import org.jooby.mvc.POST
+import org.jooby.mvc.Path
+import javax.inject.Inject
 
 data class Param(val id: String? = null,
                  val pass: String? = null)
 
-class Login : Kooby({
-    get("/login") {
-        req ->
-        var param = req.params(Param::class.java)
-        redirect("/login/to_redirect?pass=${param.pass}")
+@Path("/login")
+class Login @Inject constructor(val loginController: LoginController) {
 
-    }
+    @Path("/")
+    @GET
+    fun redirect(param: Param) = redirect("/login/to_redirect?pass=${param.pass}")
 
-    get("/login/{id}") {
-        req ->
-        var param = req.params(Param::class.java)
-        var c =  LoginController()
-        c.login(param)
-    }
 
-    post ("/login/{id}") {
-        req ->
-        var param = req.params(Param::class.java)
+    @Path("/{id}")
+    @GET
+    fun get(param: Param): String = loginController.login(param)
 
-        var c =  LoginController()
-        c.ok(param)
-    }
-})
+    @Path("/{id}")
+    @POST
+    fun post(param: Param): String = loginController.ok(param)
+}

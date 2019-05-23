@@ -6,7 +6,7 @@ import org.jooby.Kooby
 class Router : Kooby({
 
     path("/api") {
-        use(Login())
+        use(Login::class)
     }
 })
 
