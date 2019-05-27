@@ -14,14 +14,15 @@ import org.jooby.json.Jackson
 import org.jooby.run
 import org.jooby.jdbi.TransactionalRequest
 import org.jdbi.v3.core.kotlin.KotlinPlugin
+import org.jdbi.v3.postgres.PostgresPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
+import org.jooby.flyway.Flywaydb
 
 
 class App : Kooby({
 
     // 標準モジュールの定義
-//    use(ServiceModule)
     use(Jackson())
     use(Jdbc())
     use(Jdbi3()
@@ -29,15 +30,16 @@ class App : Kooby({
                 jdbi.installPlugin(SqlObjectPlugin())
                 jdbi.installPlugin(KotlinPlugin())
                 jdbi.installPlugin(KotlinSqlObjectPlugin())
+                jdbi.installPlugin(PostgresPlugin())
             }
             /** Simple transaction per request and bind the PetRepository to it:  */
             .transactionPerRequest(
                     TransactionalRequest()
-//                            .attach(LoginRepository::class.java)
+                            .attach(LoginRepository::class.java)
             ))
+    use(Flywaydb())
     use(ApiTool().swagger().raml())
 
-//    use(BillingModule())
     // Web Routeの定義
     use(Router())
 })

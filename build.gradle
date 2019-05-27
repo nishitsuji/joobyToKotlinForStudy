@@ -97,9 +97,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.jooby/jooby-apitool
     implementation group: 'org.jooby', name: 'jooby-apitool', version: "${jooby_version}"
     // https://mvnrepository.com/artifact/org.jooby/jooby-jdbc
-    implementation group: 'org.jooby', name: 'jooby-jdbc', version: '1.6.0'
+    implementation group: 'org.jooby', name: 'jooby-jdbc', version: "${jooby_version}"
     // https://mvnrepository.com/artifact/org.jooby/jooby-jdbi
-    implementation group: 'org.jooby', name: 'jooby-jdbi3', version: '1.6.0'
+    implementation group: 'org.jooby', name: 'jooby-jdbi3', version: "${jooby_version}"
+    // https://mvnrepository.com/artifact/org.jooby/jooby-flyway
+    implementation group: 'org.jooby', name: 'jooby-flyway', version: "${jooby_version}"
+
 
     /*
      * java Library

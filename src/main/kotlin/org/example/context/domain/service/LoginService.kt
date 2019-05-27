@@ -1,13 +1,12 @@
 package org.example.context.domain.service
 
-import com.google.inject.Inject
 import org.example.context.domain.repository.LoginRepository
+import javax.inject.Inject
 
 class LoginService
-// @Inject constructor(var loginRepository :LoginRepository)
+ @Inject constructor(var loginRepository :LoginRepository)
 {
     fun doLogin() :String {
-        return "ok doLogin"
-//       return loginRepository.loginsql(1)
+       return loginRepository.loginsql(1)
     }
 }
